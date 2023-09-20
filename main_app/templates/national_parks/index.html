@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Canadian National Parks</h1>
+
+{% for national_park in national_parks %}
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">{{ national_park.name }}</span>
+      <p>City: {{ national_park.city }}</p>
+      <p>Province: {{ national_park.province }}</p>
+      <!-- {% if cat.age > 0 %}
+        <p>Age: {{ cat.age }}</p>
+      {% else %}
+        <p>Age: Kitten</p>
+      {% endif %} -->
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock %}

@@ -1,5 +1,5 @@
 """
-WSGI config for nationalparks project.
+WSGI config for canadianparks project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'nationalparks.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'canadianparks.settings')
 
 application = get_wsgi_application()
