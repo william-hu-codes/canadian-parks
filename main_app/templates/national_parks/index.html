@@ -5,18 +5,20 @@
 <hr>
 
 {% for national_park in national_parks %}
-  <div class="card">
-    <div class="card-content">
-      <span class="card-title">{{ national_park.name }}</span>
-      <p>City: {{ national_park.city }}</p>
-      <p>Province: {{ national_park.province }}</p>
-      <!-- {% if cat.age > 0 %}
-        <p>Age: {{ cat.age }}</p>
-      {% else %}
-        <p>Age: Kitten</p>
-      {% endif %} -->
+    <div class="card">
+        <a href="{% url 'national_parks_detail' national_park.id %}">
+            <div class="card-content">
+                <span class="card-title">{{ national_park.name }}</span>
+                <p>Province: {{ national_park.province }}</p>
+                <p>City: {{ national_park.city }}</p>
+                <!-- {% if cat.age > 0 %}
+                <p>Age: {{ cat.age }}</p>
+                {% else %}
+                <p>Age: Kitten</p>
+                {% endif %} -->
+            </div>
+        </a>
     </div>
-  </div>
 {% endfor %}
 
 {% endblock %}
