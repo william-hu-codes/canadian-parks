@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView
 from .models import National_park
 
 # baby step - usually a model is used to store data
@@ -21,3 +22,7 @@ def national_parks_detail(request, national_park_id):
     return render(request, "national_parks/detail.html", {
         "national_park": national_park
     })
+
+class NationalParkCreate(CreateView):
+    model = National_park
+    fields = "__all__"

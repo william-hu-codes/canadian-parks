@@ -15,11 +15,12 @@
     <nav>
       <div class="nav-wrapper">
         <ul>
-          <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Home</a></li>
+          <li><a href="{% url 'home' %}" class="left brand-logo">&nbsp;&nbsp;Home</a></li>
         </ul>
         <ul class="right">
-          <li><a href="/about">About</a></li>
-          <li><a href="/national-parks">National Parks</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'national_parks_create' %}">Add a National Park</a></li>
+          <li><a href="{% url 'national_parks_index' %}">National Parks</a></li>
         </ul>
       </div>
     </nav>
