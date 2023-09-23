@@ -1,4 +1,11 @@
 from django.db import models
+from django.urls import reverse
+
+DIFFICULTIES = (
+    ("E", "Easy"),
+    ("M", "Moderate"),
+    ("H", "Hard")
+)
 
 # Create your models here.
 class National_park(models.Model):
@@ -11,3 +18,21 @@ class National_park(models.Model):
     # Therefore, no makemigrations is necessary
     def __str__(self):
         return f"{self.name} ({self.id})"
+    
+    def get_absolute_url(self):
+        return reverse("national_parks_detail", kwargs={"national_park_id": self.id})
+    
+class Trail(models.Model):
+    name = models.CharField(max_length=100)
+    difficulty = models.CharField(
+        max_length=1,
+        choices=DIFFICULTIES,
+        default=DIFFICULTIES[1][0]
+    )
+    distance = models.FloatField("Trail Distance")
+    national_park = models.ForeignKey(
+        National_park,
+        on_delete=models.CASCADE
+    )
+    def __str__(self):
+        return f"{self.name} | {self.distance} km | difficulty: {self.get_difficulty_display()}"

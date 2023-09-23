@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import National_park
+
 
 # baby step - usually a model is used to store data
 
@@ -26,3 +27,12 @@ def national_parks_detail(request, national_park_id):
 class NationalParkCreate(CreateView):
     model = National_park
     fields = "__all__"
+    # success_url = "/national_parks"
+
+class NationalParkUpdate(UpdateView):
+    model = National_park
+    fields = ["province", "city", "description"]
+
+class NationalParkDelete(DeleteView):
+    model = National_park
+    success_url = "/national-parks"
