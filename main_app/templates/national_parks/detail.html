@@ -4,22 +4,50 @@
 <h1>Canadian National Parks</h1>
 <hr>
 
-    <div class="card">
-        <div class="card-content">
-            <span class="card-title">{{ national_park.name }}</span>
-            <p>Province: {{ national_park.province }}</p>
-            <p>City: {{ national_park.city }}</p>
-            <p>Description: {{ national_park.description|linebreaks }}</p>
-            <!-- {% if cat.age > 0 %}
-            <p>Age: {{ cat.age }}</p>
-            {% else %}
-            <p>Age: Kitten</p>
-            {% endif %} -->
-        </div>
-        <div class="card-action">
-            <a href="{% url 'national_parks_update' national_park.id %}">Edit</a>
-            <a href="{% url 'national_parks_delete' national_park.id %}">Delete</a>
-        </div>
+<div class="card">
+    <div class="card-content">
+        <span class="card-title">{{ national_park.name }}</span>
+        <p>Province: {{ national_park.province }}</p>
+        <p>City: {{ national_park.city }}</p>
+        <p>Description: {{ national_park.description|linebreaks }}</p>
+        <!-- {% if cat.age > 0 %}
+        <p>Age: {{ cat.age }}</p>
+        {% else %}
+        <p>Age: Kitten</p>
+        {% endif %} -->
     </div>
+    <div class="card-action">
+        <a href="{% url 'national_parks_update' national_park.id %}">Edit</a>
+        <a href="{% url 'national_parks_delete' national_park.id %}">Delete</a>
+    </div>
+    <div class="col s6">
+        <form method="POST" action="{% url 'add_trail' national_park.id %}">
+            {% csrf_token %}
+            <!-- Render the inputs -->
+            {{ trail_form.as_p }}
+            <input type="submit" class="btn" value="Add Trail">
+        </form>
+        <table class="striped">
+        <thead>
+            <tr><th>Name</th><th>Difficulty</th><th>Distance</th></tr>
+        </thead>
+        <h4>Park Trails</h4>
+        <tbody>
+            {% for trail in national_park.trail_set.all %}
+            <tr>
+                <td>{{trail.name}}</td>
+                <td>{{trail.get_difficulty_display}}</td>
+                <td>{{ trail.distance }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    const selectEl = document.getElementById("id_difficulty");
+    M.FormSelect.init(selectEl)
+</script>
 
 {% endblock %}

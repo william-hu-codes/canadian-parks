@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import National_park
+from .forms import TrailForm
 
 
 # baby step - usually a model is used to store data
@@ -20,8 +21,10 @@ def national_parks_index(request):
 
 def national_parks_detail(request, national_park_id):
     national_park = National_park.objects.get(id=national_park_id)
+    trail_form = TrailForm()
     return render(request, "national_parks/detail.html", {
-        "national_park": national_park
+        "national_park": national_park,
+        "trail_form": trail_form
     })
 
 class NationalParkCreate(CreateView):
@@ -36,3 +39,11 @@ class NationalParkUpdate(UpdateView):
 class NationalParkDelete(DeleteView):
     model = National_park
     success_url = "/national-parks"
+
+def add_trail(request, national_park_id):
+    form = TrailForm(request.POST)
+    if form.is_valid():
+        new_trail = form.save(commit=False)
+        new_trail.national_park_id = national_park_id
+        new_trail.save()
+    return redirect("national_parks_detail", national_park_id=national_park_id)
